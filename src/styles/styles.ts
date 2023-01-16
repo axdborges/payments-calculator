@@ -45,7 +45,6 @@ export const GlobalStyle = createGlobalStyle`
         background-color: var(--gray-background);
 
         font-size: calc(10px + 2vmin);
-        /* color: white; */
 
         height: 100vh;
         width: 100vw;

@@ -25,7 +25,9 @@ export const StyledReceive = styled.div`
 
     p {
         font-style: italic;
-        
+        display: flex;
+        gap: 7px;
+
         span {
             font-weight: bold;
         }

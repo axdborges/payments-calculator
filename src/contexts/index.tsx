@@ -1,6 +1,6 @@
-import React, { createContext, ReactNode, SetStateAction } from "react";
+import React, { createContext, ReactNode, SetStateAction, useContext } from "react";
 import { useState } from "react";
-import api from "../components/services/api";
+import api from "../services/api";
 
 interface IContextProvider {
     children: ReactNode;
@@ -11,18 +11,23 @@ interface IContextProps {
     fifteen: number;
     thirty: number;
     ninety: number;
-    setTomorrow: React.Dispatch<SetStateAction<number>>;
-    setFifteenDays: React.Dispatch<SetStateAction<number>>;
-    setThirtyDays: React.Dispatch<SetStateAction<number>>;
-    setNinetyDays: React.Dispatch<SetStateAction<number>>;
+    setTomorrow: (value: number ) => void;
+    setFifteenDays: (value: number ) => void;
+    setThirtyDays: (value: number ) => void;
+    setNinetyDays: (value: number ) => void;
 };
 
 export const CalculatorContext = createContext<IContextProps>(
     {} as IContextProps
 )
 
+export const useCalculatorContext = (): IContextProps => {
+    const context = useContext(CalculatorContext);
+    return context
+}
+
 export const CalculatorProvider = ({children}: IContextProvider) => {
-    const [tomorrow, setTomorrow] = useState(0);
+    const [tomorrow, setTomorrow] = useState<number>(0);
     const [fifteen, setFifteenDays] = useState(0);
     const [thirty, setThirtyDays] = useState(0);
     const [ninety, setNinetyDays] = useState(0);
@@ -36,7 +41,7 @@ export const CalculatorProvider = ({children}: IContextProvider) => {
             setTomorrow,
             setFifteenDays,
             setThirtyDays,
-            setNinetyDays,
+            setNinetyDays
         }}>
             {children}
         </CalculatorContext.Provider>
