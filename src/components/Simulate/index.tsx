@@ -7,14 +7,28 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import api from "../services/api";
 import { AxiosError, AxiosResponse } from "axios";
 
+import { useContext } from "react";
+import { CalculatorContext } from "../../contexts";
+
+
 interface IData {
     amount: Number;
     installments: Number;
     mdr: Number;
     // days?: Number[];
-}
+};
+
+export interface IResponse {
+    1: Number;
+    15: Number;
+    30: Number;
+    90: Number;
+};
 
 export const Simulate = () => {
+
+    const { setTomorrow, setFifteenDays, setThirtyDays, setNinetyDays } = useContext(CalculatorContext)
+
 
     const schema = yup.object().shape({
         amount: yup.number().required("* Campo obrigatório"),
@@ -30,7 +44,14 @@ export const Simulate = () => {
     const submitFunction = (data: IData) => {
         api.post("", data)
         .then((response: AxiosResponse) => {
-            console.log(response.data);    
+            const resTomorrow: any = Object.values(response.data)[0]
+            const resFifteen: any = Object.values(response.data)[0]
+            const resThirty: any = Object.values(response.data)[0]
+            const resNinety: any = Object.values(response.data)[0]
+            setTomorrow(resTomorrow)
+            setFifteenDays(resFifteen)
+            setThirtyDays(resThirty)
+            setNinetyDays(resNinety)    
         })
         .catch((err: AxiosError) =>{
             console.log(err);  
