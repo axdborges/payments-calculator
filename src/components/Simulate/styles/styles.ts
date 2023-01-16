@@ -47,6 +47,11 @@ export const StyledSimulate = styled.div`
 
                 border: solid 1px var(--gray-text);
                 border-radius: 4px;
+
+                ::placeholder {
+                    font-size: 7px;
+                    color: red;
+                }
             }
 
             span {
